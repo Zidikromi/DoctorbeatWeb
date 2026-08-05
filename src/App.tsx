@@ -4,6 +4,7 @@ import { HeroSection } from './components/heresection'
 import BandMembers from './components/membersection'
 import { Navbar } from './components/navbar'
 import RecapFoto from './components/recapfoto'
+import SocialMediaSection from './components/socialmediasection'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
      <HeroSection />
     <BandMembers />
     <RecapFoto />
+    <SocialMediaSection/>
     </>
   )
 }

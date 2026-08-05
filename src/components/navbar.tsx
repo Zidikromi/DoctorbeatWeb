@@ -12,12 +12,10 @@ export const Navbar: React.FC = () => {
 
   const navItems: NavItem[] = [
     { label: 'MEMBERS', href: '#members' },
-    { label: 'GIGS', href: '#gigs' },
-    { label: 'STORY', href: '#story' },
-    { label: 'JOIN', href: '#join' },
+    { label: 'RECAP', href: '#recap' },
+    { label: 'SOCIAL', href: '#social' },
   ];
 
-  // Efek bayangan saat halaman di-scroll agar tampak dinamis
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -32,25 +30,28 @@ export const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`w-full bg-white fixed top-0 left-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'shadow-md py-1' : 'border-b border-gray-100 py-0'
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 font-sans ${
+        isScrolled
+          ? 'bg-[#0d1410]/90 backdrop-blur-md border-b border-white/10 py-3 shadow-2xl'
+          : 'bg-transparent py-5 border-b border-white/5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-14">
           
           {/* Logo Brand di Pojok Kiri */}
-          <div className="flex-shrink-0 z-20">
+          <div className="shrink-0 z-20">
             <a
               href="#"
-              className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter uppercase font-anton text-black"
+              style={{ fontFamily: "'Anton', sans-serif" }}
+              className="text-2xl sm:text-3xl font-black tracking-wider uppercase text-[#f4f1ea] transition-all duration-300 ease-in-out select-none hover:text-[#9DB2C3] hover:drop-shadow-[0_0_20px_rgba(157,178,195,0.6)]"
             >
-              Doctor Beat
+              DOCTOR BEAT
             </a>
           </div>
 
-          {/* Desktop Navigation Links (Hanya muncul di layar Medium ke atas) */}
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-12">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
             {navItems.map((item) => {
               const isActive = activeItem === item.label;
               return (
@@ -58,43 +59,45 @@ export const Navbar: React.FC = () => {
                   key={item.label}
                   href={item.href}
                   onClick={() => setActiveItem(item.label)}
-                  className={`relative py-7 text-xs lg:text-sm font-bold font-anton tracking-widest transition-colors ${
-                    isActive ? 'text-black' : 'text-gray-700 hover:text-black'
+                  style={{ fontFamily: "'Anton', sans-serif" }}
+                  className={`relative py-2 text-sm lg:text-base tracking-[0.2em] uppercase transition-all duration-300 ${
+                    isActive ? 'text-[#9DB2C3]' : 'text-zinc-400 hover:text-[#f4f1ea]'
                   }`}
                 >
                   {item.label}
-                  {/* Indikator Aktif Desktop */}
+                  
+                  {/* Indikator Garis Aktif */}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[3px] bg-black" />
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#9DB2C3]" />
                   )}
                 </a>
               );
             })}
           </nav>
 
-          {/* Hamburger Menu Button (Hanya muncul di Mobile/Tablet, tersembunyi di md ke atas) */}
+          {/* Custom Hamburger Button (Mobile) */}
           <div className="flex items-center md:hidden z-20">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-black focus:outline-none hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-[#f4f1ea] focus:outline-none"
               aria-label="Toggle Menu"
             >
-              <div className="space-y-1.5 w-6">
+              <div className="space-y-2 w-6">
                 <span
-                  className={`block h-0.5 w-full bg-black transition-transform duration-300 ${
-                    isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                  className={`block h-0.5 w-full bg-[#9DB2C3] transition-transform duration-300 ${
+                    isMobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''
                   }`}
-                ></span>
+                />
                 <span
-                  className={`block h-0.5 w-full bg-black transition-opacity duration-300 ${
+                  className={`block h-0.5 w-full bg-[#f4f1ea] transition-opacity duration-300 ${
                     isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
                   }`}
-                ></span>
+                />
                 <span
-                  className={`block h-0.5 w-full bg-black transition-transform duration-300 ${
-                    isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                  className={`block h-0.5 w-full bg-[#9DB2C3] transition-transform duration-300 ${
+                    isMobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''
                   }`}
-                ></span>
+                />
               </div>
             </button>
           </div>
@@ -104,13 +107,13 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Fullscreen Overlay Menu */}
       <div
-        className={`fixed inset-0 bg-white z-10 transition-all duration-300 ease-in-out flex flex-col justify-center px-8 md:hidden ${
+        className={`fixed inset-0 bg-[#0d1410] z-10 transition-all duration-500 ease-in-out flex flex-col justify-between px-8 py-20 md:hidden ${
           isMobileMenuOpen
             ? 'opacity-100 pointer-events-auto translate-y-0'
             : 'opacity-0 pointer-events-none -translate-y-full'
         }`}
       >
-        <div className="flex flex-col space-y-6 text-center">
+        <div className="flex flex-col space-y-8 my-auto">
           {navItems.map((item) => {
             const isActive = activeItem === item.label;
             return (
@@ -121,8 +124,9 @@ export const Navbar: React.FC = () => {
                   setActiveItem(item.label);
                   setIsMobileMenuOpen(false);
                 }}
-                className={`text-2xl font-black tracking-widest transition-colors ${
-                  isActive ? 'text-black underline underline-offset-8' : 'text-gray-400 hover:text-black'
+                style={{ fontFamily: "'Anton', sans-serif" }}
+                className={`text-4xl sm:text-5xl tracking-wider uppercase transition-all border-b border-white/10 pb-4 ${
+                  isActive ? 'text-[#9DB2C3] pl-2' : 'text-zinc-500 hover:text-[#f4f1ea]'
                 }`}
               >
                 {item.label}
@@ -130,7 +134,15 @@ export const Navbar: React.FC = () => {
             );
           })}
         </div>
+
+        {/* Mobile Footer Stamp */}
+        <div className="pt-6 border-t border-white/10 flex items-center justify-between text-[11px] font-mono tracking-widest text-zinc-500 uppercase">
+          <span>APPLE RECORDS VIBE</span>
+          <span className="text-[#9DB2C3]">EST. 1960s</span>
+        </div>
       </div>
     </header>
   );
 };
+
+export default Navbar;
