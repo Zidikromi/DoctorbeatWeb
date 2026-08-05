@@ -1,5 +1,5 @@
 import React from 'react';
-import heroPic from '../assets/img/heropic.png';
+import heroPic from '../assets/heropic.png';
 
 export const HeroSection: React.FC = () => {
   return (

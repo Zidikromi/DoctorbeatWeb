@@ -1,7 +1,7 @@
-import sigit from "../assets/img/sigit.png";
-import gen from "../assets/img/gen.png";
-import duy from "../assets/img/duy.png";
-import budi from "../assets/img/budi.png";
+import sigit from "../assets/sigit.png";
+import gen from "../assets/gen.png";
+import duy from "../assets/duy.png";
+import budi from "../assets/budi.png";
 
 interface Member {
   id: number;
