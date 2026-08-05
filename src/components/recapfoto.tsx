@@ -26,38 +26,38 @@ interface DoctorBeatGalleryProps {
 }
 
 // ==============================================================================
-// FOTO ASLI DOCTOR BEAT (BEATLES TRIBUTE BANDUNG)
+// FOTO RECAP THE BEATLES (TEMPORARY HIGH-RES PHOTOS)
 // ==============================================================================
 const DOCTOR_BEAT_PHOTOS: PhotoItem[] = [
   { 
-    src: "https://img.youtube.com/vi/mStpSl0nxJg/maxresdefault.jpg", 
-    title: "Live at TP Stage", 
-    location: "The Papandayan Hotel" 
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOsayMcTtWzXNcilxK7Bn0zzI9J8Nhq55Toy86AqRMyTk8lGuBwdKagjHZ&s=10 ", 
+    title: "Abbey Road Vibe", 
+    location: "London, UK" 
   },
   { 
-    src: "https://img.youtube.com/vi/KH9-SvpMXqg/maxresdefault.jpg", 
-    title: "Live at Summarecon Mall", 
-    location: "Bandung" 
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1y8JL-xi9Mh9wV_hc1l2aUMtRW5flc9iFZejTxPH7Xg&s=10", 
+    title: "Live Concert Night", 
+    location: "Shea Stadium" 
   },
   { 
-    src: "https://img.youtube.com/vi/0nUH3kEu-1Q/maxresdefault.jpg", 
-    title: "Stage Performance", 
-    location: "Live Gig" 
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnLKN1g8_ztJf3u74q3C5MHKbYXqSRnXy4xr3CDineqg&s=10", 
+    title: "Vintage Rock Setup", 
+    location: "Cavern Club" 
   },
   { 
-    src: "https://img.youtube.com/vi/mStpSl0nxJg/hqdefault.jpg", 
-    title: "Full Set Performance", 
-    location: "TP Stage" 
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhakH3WZc8uG4u-IDMuE3W0cAEKzEUJWQJk8hWJD9mKymxMahfst8wXt04&s=10", 
+    title: "Psychedelic Stage", 
+    location: "Studio 2" 
   },
   { 
-    src: "https://img.youtube.com/vi/KH9-SvpMXqg/hqdefault.jpg", 
-    title: "Beatles Tribute Night", 
-    location: "Summarecon Mall" 
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9BMux_WFqdDS3jeLubQuhy1EdiwueWC_QB4pe50AXYA&s=10", 
+    title: "Rooftop Session", 
+    location: "Apple Studio" 
   },
   { 
-    src: "https://img.youtube.com/vi/0nUH3kEu-1Q/hqdefault.jpg", 
-    title: "Doctor Beat On Stage", 
-    location: "Bandung" 
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZRJieSQTYI4nU-xSxz9-6_CdNrUbFEZ9SRHa3TPN8DA&s=10", 
+    title: "Rock N Roll Revival", 
+    location: "Live Tour" 
   },
 ];
 
@@ -86,12 +86,12 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
     >
       <img 
         src={src} 
-        alt={title || "Doctor Beat Photo"} 
+        alt={title || "The Beatles Photo"} 
         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
       />
       
       {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5" />
       
       {/* Title Badge */}
       {title && (
@@ -156,7 +156,7 @@ export default function DoctorBeatGallery({ photos = DOCTOR_BEAT_PHOTOS }: Docto
           speed={900}
           autoplay={{ delay: 3800, disableOnInteraction: false }}
           grabCursor={true}
-          className="w-full overflow-visible!"
+          className="w-full !overflow-visible"
         >
           {slides.map((group, slideIndex) => (
             <SwiperSlide key={slideIndex} style={{ width: 'clamp(340px, 72vw, 840px)' }}>
