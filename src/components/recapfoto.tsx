@@ -124,10 +124,6 @@ export default function DoctorBeatGallery({ photos = DOCTOR_BEAT_PHOTOS }: Docto
       {/* Header */}
       <div className="px-6 mb-12 max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-zinc-800/80 pb-8">
         <div>
-          <div className="flex items-center gap-3 mb-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-xs font-mono text-zinc-400 tracking-widest uppercase">BANDUNG, ID • BEATLES TRIBUTE</span>
-          </div>
           <h2 className="text-4xl sm:text-6xl md:text-7xl uppercase tracking-tight text-white">
             DOCTOR BEAT <span className="text-zinc-500">RECAP</span>
           </h2>
