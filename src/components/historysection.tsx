@@ -34,7 +34,7 @@ export default function BandHistory(): React.ReactElement {
       description:
         "Doctor Beat dibentuk oleh gabungan musisi berpengalaman dari berbagai komunitas musik di Bandung. Berawal dari minat bersama untuk menghidupkan kembali warna musik vintage dari era emas 60-an dan 70-an.",
       mainImage: pic2022,
-      items: ["Formasi Musisi Bandung", "Vintage Pop Rock 'n' Roll", "Repertoire Legendaris"],
+      items: ["Formasi Musisi Bandung", "Vintage Pop Rock 'n' Roll"],
     },
     {
       year: "2023",
@@ -57,7 +57,7 @@ export default function BandHistory(): React.ReactElement {
     {
       year: "2026",
       badge: "Konsistensi",
-      title: "Ekspansi Pertunjukan & Repertoire",
+      title: "Ekspansi Pertunjukan",
       description:
         "Doctor Beat terus memperluas ruang tampil dari panggung kafe, gelaran Reuni, hingga festival korporat, menjaga napas harmoni klasik tetap bergelora bagi pendengar lama maupun generasi muda.",
       mainImage: pic2026,
