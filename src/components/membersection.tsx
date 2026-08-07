@@ -23,7 +23,7 @@ const members: Member[] = [
     description:
       "The rhythmic soul and acerbic wit. Capturing the raw vocal power and experimental spirit of 1966 Lennon. A performance that balances the avant-garde with pure rock and roll precision.",
     image: sigit,
-    bgColor: "bg-[#0d1410]", // Apple Records Dark Slate
+    bgColor: "bg-zinc-950", // Apple Records Dark Slate
     textColor: "text-[#f4f1ea]",
     lineColor: "bg-[#B85B31]", // Autumn Crimson Rust
     hoverGlow: "hover:text-[#B85B31] hover:drop-shadow-[0_0_35px_rgba(184,91,49,0.7)]",
@@ -47,7 +47,7 @@ const members: Member[] = [
     description:
       "Harmonic anchor and baroque pop textures. Delivering rich piano arrangements, soaring basslines, and melodic precision that capture the golden studio era.",
     image: duy,
-    bgColor: "bg-[#0d1410]",
+    bgColor: "bg-zinc-950",
     textColor: "text-[#f4f1ea]",
     lineColor: "bg-[#D4A373]", // Warm Golden Ochre
     hoverGlow: "hover:text-[#D4A373] hover:drop-shadow-[0_0_35px_rgba(212,163,115,0.7)]",
