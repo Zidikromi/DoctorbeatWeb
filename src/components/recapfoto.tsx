@@ -4,56 +4,64 @@ import { Autoplay } from 'swiper/modules';
 import { motion, type Variants } from 'framer-motion';
 import 'swiper/css';
 
+import foto1 from '../assets/galeri/1.jpg';
+import foto2 from '../assets/galeri/8.jpg';
+import foto3 from '../assets/galeri/3.jpg';
+import foto7 from '../assets/galeri/4.jpg';
+import foto5 from '../assets/galeri/5.jpg';
+import foto6 from '../assets/galeri/8.jpg';
+
 export interface PhotoItem {
-  src: string;
-  title?: string;
-  location?: string;
+  type?: 'image' | 'video';
+  src?: string;
+  embedUrl?: string;
 }
 
 interface PhotoCardProps {
-  src?: string;
-  title?: string;
-  location?: string;
+  item?: PhotoItem;
   className?: string;
   style?: React.CSSProperties;
-  index?: number;
 }
 
 interface DoctorBeatGalleryProps {
   photos?: PhotoItem[];
 }
 
+// Helper untuk mengubah link YouTube/Facebook biasa menjadi Embed URL yang valid
+const getFormattedEmbedUrl = (url?: string): string => {
+  if (!url) return '';
+
+  // 1. YouTube Short / Watch Link -> Convert to YouTube Embed Link
+  if (url.includes('youtu.be/')) {
+    const id = url.split('youtu.be/')[1]?.split('?')[0];
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  if (url.includes('youtube.com/watch')) {
+    const urlParams = new URLSearchParams(url.split('?')[1]);
+    const id = urlParams.get('v');
+    return `https://www.youtube.com/embed/${id}`;
+  }
+
+  // 2. Facebook Link -> Convert to Facebook Embed Link jika belum di-format
+  if (url.includes('facebook.com') && !url.includes('plugins/video.php')) {
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false`;
+  }
+
+  return url;
+};
+
 const DOCTOR_BEAT_PHOTOS: PhotoItem[] = [
-  { 
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOsayMcTtWzXNcilxK7Bn0zzI9J8Nhq55Toy86AqRMyTk8lGuBwdKagjHZ&s=10", 
-    title: "Abbey Road Vibe", 
-    location: "London, UK" 
+  { type: 'image', src: foto1 },
+  { type: 'image', src: foto2 },
+  { type: 'image', src: foto3 },
+ 
+  { type: 'image', src: foto7 },
+   { 
+    type: 'video', 
+    embedUrl: "https://youtu.be/bMuLj-RfAGI?si=hdBUoOYI1o_Il_LR" // Bebas masukkan link YouTube/Facebook biasa
   },
-  { 
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1y8JL-xi9Mh9wV_hc1l2aUMtRW5flc9iFZejTxPH7Xg&s=10", 
-    title: "Live Concert Night", 
-    location: "Shea Stadium" 
-  },
-  { 
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnLKN1g8_ztJf3u74q3C5MHKbYXqSRnXy4xr3CDineqg&s=10", 
-    title: "Vintage Rock Setup", 
-    location: "Cavern Club" 
-  },
-  { 
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhakH3WZc8uG4u-IDMuE3W0cAEKzEUJWQJk8hWJD9mKymxMahfst8wXt04&s=10", 
-    title: "Psychedelic Stage", 
-    location: "Studio 2" 
-  },
-  { 
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9BMux_WFqdDS3jeLubQuhy1EdiwueWC_QB4pe50AXYA&s=10", 
-    title: "Rooftop Session", 
-    location: "Apple Studio" 
-  },
-  { 
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZRJieSQTYI4nU-xSxz9-6_CdNrUbFEZ9SRHa3TPN8DA&s=10", 
-    title: "Rock N Roll Revival", 
-    location: "Live Tour" 
-  },
+  { type: 'image', src: foto5 },
+  { type: 'image', src: foto6 },
 ];
 
 const GAP = 16;
@@ -65,63 +73,39 @@ const itemVariants: Variants = {
 };
 
 const PhotoCard: React.FC<PhotoCardProps> = ({ 
-  src, 
-  title, 
-  location, 
+  item, 
   className = "", 
-  style = {},
-  index
+  style = {}
 }) => {
-  if (!src) return null;
+  if (!item) return null;
+
+  const formattedUrl = getFormattedEmbedUrl(item.embedUrl);
 
   return (
     <motion.div 
       variants={itemVariants} 
       style={style} 
-      className={`group relative overflow-hidden bg-zinc-900 border border-white/10 transition-all duration-500 ${className}`}
+      className={`group relative overflow-hidden bg-zinc-900 border border-zinc-800/80 rounded-2xl transition-all duration-500 ${className}`}
     >
-      <img 
-        src={src} 
-        alt={title || "The Beatles Photo"} 
-        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-90 group-hover:brightness-100" 
-      />
-      
-      {/* Vignette Shadow Gradient */}
-      <div className="absolute inset-0 bg-linear-to-t from-[#0d1410] via-transparent to-black/30 opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
-      
-      {/* Index Number Watermark */}
-      {typeof index === 'number' && (
-        <div className="absolute top-4 left-4 z-10 pointer-events-none">
-          <span className="font-mono text-xs tracking-widest text-white/50 group-hover:text-amber-400 transition-colors">
-            // {String(index + 1).padStart(2, '0')}
-          </span>
+      {item.type === 'video' && formattedUrl ? (
+        <div className="w-full h-full relative bg-black">
+          <iframe
+            src={formattedUrl}
+            className="w-full h-full border-none overflow-hidden"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen={true}
+            title="Doctor Beat Gallery Video"
+          />
         </div>
-      )}
-
-      {/* Information Overaly (Clean & Brutalist) */}
-      {title && (
-        <div className="absolute bottom-0 inset-x-0 z-10 p-5 sm:p-6 flex items-end justify-between border-t border-white/0 group-hover:border-white/10 transition-colors duration-300">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-1 h-3 bg-amber-400" />
-              <h4 
-                style={{ fontFamily: "'Anton', sans-serif" }} 
-                className="text-lg sm:text-xl text-white tracking-wide uppercase leading-none"
-              >
-                {title}
-              </h4>
-            </div>
-            {location && (
-              <p className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest pl-3">
-                {location}
-              </p>
-            )}
-          </div>
-          
-          <span className="text-amber-400 text-sm font-mono opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
-            →
-          </span>
-        </div>
+      ) : (
+        <>
+          <img 
+            src={item.src} 
+            alt="Doctor Beat Gallery" 
+            className="w-full h-full object-cover filter brightness-90 group-hover:brightness-100 transition-all duration-700 ease-out group-hover:scale-105" 
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-zinc-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none" />
+        </>
       )}
     </motion.div>
   );
@@ -141,119 +125,105 @@ export default function DoctorBeatGallery({ photos = DOCTOR_BEAT_PHOTOS }: Docto
   const slides = chunkPhotos(photos, 3);
 
   return (
-    <section className="relative w-full bg-[#0d1410] text-[#f4f1ea] py-24 sm:py-32 overflow-hidden font-sans border-t border-white/10">
+    <section className="relative w-full bg-zinc-950 text-[#F4F5F7] py-24 px-4 sm:px-8 lg:px-12 overflow-hidden selection:bg-[#9DB2C3] selection:text-black">
       
-      {/* Background Subtle Noise Filter */}
-      <div 
-        className="absolute inset-0 z-0 pointer-events-none opacity-20 mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-        }}
-      />
+      {/* Background Lighting Vignette */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-175 h-87.5 bg-[#3E526D]/15 blur-[160px] pointer-events-none" />
 
       {/* Header Area */}
-      <div className="relative z-10 px-6 sm:px-12 max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-white/10 mb-16">
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-zinc-800/80 mb-16">
         <div>
-         
+          <span className="text-[#9DB2C3]/80 text-xs font-semibold tracking-[0.2em] uppercase block mb-3 font-sans">
+            Visual Memories
+          </span>
           <h2 
             style={{ fontFamily: "'Anton', sans-serif" }} 
-            className="text-5xl sm:text-7xl md:text-8xl uppercase tracking-tight text-white font-black leading-none"
+            className="text-5xl sm:text-7xl font-['Anton'] uppercase tracking-tight text-[#F4F5F7] leading-none"
           >
-            DOCTOR BEAT <span className="text-amber-300">RECAP</span>
+            DOCTOR BEAT <span className="text-[#9DB2C3]">RECAP</span>
           </h2>
         </div>
 
-     
+        <p className="text-zinc-400 text-sm max-w-sm font-light leading-relaxed">
+          Dokumentasi momen panggung dan atmosfer vintage dari setiap pertunjukan Doctor Beat.
+        </p>
       </div>
 
       {/* Bento Grid Carousel */}
-      <div className="relative z-10 px-6 sm:px-12 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto">
         <Swiper
           modules={[Autoplay]}
           slidesPerView="auto"
           spaceBetween={24}
           loop={slides.length > 1}
           speed={800}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 8000, disableOnInteraction: false }}
           grabCursor={true}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           className="w-full overflow-visible!"
         >
-          {slides.map((group, slideIndex) => {
-            const baseIdx = slideIndex * 3;
+          {slides.map((group, slideIndex) => (
+            <SwiperSlide key={slideIndex} style={{ width: 'clamp(320px, 75vw, 880px)' }}>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ staggerChildren: 0.1 }}
+              >
+                {slideIndex % 3 === 0 && (
+                  <div style={{ display: 'grid', gap: GAP, gridTemplateColumns: group.length > 1 ? '1.4fr 1fr' : '1fr', gridTemplateRows: '1fr 1fr', height: H }}>
+                    <PhotoCard 
+                      item={group[0]} 
+                      style={{ gridRow: group.length > 1 ? '1/3' : '1/3' }} 
+                    />
+                    {group[1] && <PhotoCard item={group[1]} />}
+                    {group[2] && <PhotoCard item={group[2]} />}
+                  </div>
+                )}
 
-            return (
-              <SwiperSlide key={slideIndex} style={{ width: 'clamp(320px, 75vw, 880px)' }}>
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ staggerChildren: 0.1 }}
-                >
-                  {slideIndex % 3 === 0 && (
-                    <div style={{ display: 'grid', gap: GAP, gridTemplateColumns: group.length > 1 ? '1.4fr 1fr' : '1fr', gridTemplateRows: '1fr 1fr', height: H }}>
-                      <PhotoCard 
-                        src={group[0]?.src} 
-                        title={group[0]?.title} 
-                        location={group[0]?.location} 
-                        index={baseIdx}
-                        style={{ gridRow: group.length > 1 ? '1/3' : '1/3' }} 
-                      />
-                      {group[1] && <PhotoCard src={group[1]?.src} title={group[1]?.title} location={group[1]?.location} index={baseIdx + 1} />}
-                      {group[2] && <PhotoCard src={group[2]?.src} title={group[2]?.title} location={group[2]?.location} index={baseIdx + 2} />}
-                    </div>
-                  )}
+                {slideIndex % 3 === 1 && (
+                  <div style={{ display: 'grid', gap: GAP, gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1.2fr 1fr', height: H }}>
+                    <PhotoCard 
+                      item={group[0]} 
+                      style={{ gridColumn: '1/3' }} 
+                    />
+                    {group[1] && <PhotoCard item={group[1]} />}
+                    {group[2] && <PhotoCard item={group[2]} />}
+                  </div>
+                )}
 
-                  {slideIndex % 3 === 1 && (
-                    <div style={{ display: 'grid', gap: GAP, gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1.2fr 1fr', height: H }}>
+                {slideIndex % 3 === 2 && (
+                  <div style={{ display: 'grid', gap: GAP, gridTemplateColumns: group.length > 2 ? '1fr 1.4fr' : '1fr 1fr', gridTemplateRows: '1fr 1fr', height: H }}>
+                    {group[0] && <PhotoCard item={group[0]} />}
+                    {group[1] && <PhotoCard item={group[1]} />}
+                    {group[2] && (
                       <PhotoCard 
-                        src={group[0]?.src} 
-                        title={group[0]?.title} 
-                        location={group[0]?.location} 
-                        index={baseIdx}
+                        item={group[2]} 
                         style={{ gridColumn: '1/3' }} 
                       />
-                      {group[1] && <PhotoCard src={group[1]?.src} title={group[1]?.title} location={group[1]?.location} index={baseIdx + 1} />}
-                      {group[2] && <PhotoCard src={group[2]?.src} title={group[2]?.title} location={group[2]?.location} index={baseIdx + 2} />}
-                    </div>
-                  )}
-
-                  {slideIndex % 3 === 2 && (
-                    <div style={{ display: 'grid', gap: GAP, gridTemplateColumns: group.length > 2 ? '1fr 1.4fr' : '1fr 1fr', gridTemplateRows: '1fr 1fr', height: H }}>
-                      {group[0] && <PhotoCard src={group[0]?.src} title={group[0]?.title} location={group[0]?.location} index={baseIdx} />}
-                      {group[1] && <PhotoCard src={group[1]?.src} title={group[1]?.title} location={group[1]?.location} index={baseIdx + 1} />}
-                      {group[2] && (
-                        <PhotoCard 
-                          src={group[2]?.src} 
-                          title={group[2]?.title} 
-                          location={group[2]?.location} 
-                          index={baseIdx + 2}
-                          style={{ gridColumn: '1/3' }} 
-                        />
-                      )}
-                    </div>
-                  )}
-                </motion.div>
-              </SwiperSlide>
-            );
-          })}
+                    )}
+                  </div>
+                )}
+              </motion.div>
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         {/* Minimal Progress Indicator */}
-        <div className="mt-12 flex items-center justify-between border-t border-white/10 pt-6">
+        <div className="mt-12 flex items-center justify-between border-t border-zinc-800/80 pt-6">
           <div className="flex items-center gap-2">
             {slides.map((_, idx) => (
               <div 
                 key={idx}
-                className={`h-0.5 transition-all duration-500 ${
-                  idx === activeIndex ? 'w-8 bg-amber-400' : 'w-2 bg-white/20'
+                className={`h-0.5 rounded-full transition-all duration-500 ${
+                  idx === activeIndex ? 'w-8 bg-[#9DB2C3]' : 'w-2 bg-zinc-800'
                 }`}
               />
             ))}
           </div>
 
-          <span className="text-xs font-mono text-zinc-400 tracking-widest uppercase">
-            CATALOG {String(activeIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+          <span className="text-xs font-sans text-zinc-400 tracking-wider uppercase">
+            {String(activeIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
           </span>
         </div>
       </div>

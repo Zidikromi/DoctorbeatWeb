@@ -118,8 +118,6 @@ export const HeroSection: React.FC = () => {
         <div className="absolute bottom-1/4 right-1/4 w-100 h-75 bg-[#9DB2C3]/15 rounded-full blur-[160px] pointer-events-none" />
       </div>
 
-      {/* Abbey Road Zebra Crossing Subtle Pattern Grid */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff08_2px,transparent_2px)] bg-size-[4rem_100%] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
       {/* 3D Interactive Parallax Card Container */}
       <motion.div 
@@ -182,24 +180,17 @@ export const HeroSection: React.FC = () => {
             className="mt-10 flex flex-wrap items-center gap-5"
           >
             <a
-              href="#recap"
+              href="https://wa.me/6282216442245?text=Halo,%20saya%20ingin%bertanya mengenai Band Tribute The Beatles."
               className="group relative inline-flex items-center justify-center px-9 py-4 bg-[#9DB2C3] text-zinc-950 font-bold tracking-[0.15em] text-xs sm:text-sm uppercase rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-[#F4F5F7] hover:shadow-[0_0_40px_rgba(157,178,195,0.5)]"
             >
               <span className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
               
               <span className="relative z-10 flex items-center gap-3">
-                Jadwal Performance
+                Book Band
                 <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
-            </a>
-
-            <a
-              href="#social"
-              className="inline-flex items-center justify-center px-9 py-4 bg-white/3 hover:bg-white/8 text-white font-semibold tracking-[0.15em] text-xs sm:text-sm uppercase border border-[#9DB2C3]/30 hover:border-[#9DB2C3]/70 backdrop-blur-2xl rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl"
-            >
-              Book Band
             </a>
           </motion.div>
 

@@ -20,18 +20,24 @@ const channels = [
 
 export const SocialMediaSection: React.FC = () => {
   return (
-    <section className="w-full bg-[#0d1410] text-[#f4f1ea] py-24 sm:py-32 px-6 sm:px-12 md:px-20 font-sans border-t border-white/10">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative w-full bg-zinc-950 text-[#F4F5F7] py-24 sm:py-32 px-6 sm:px-12 md:px-20 overflow-hidden selection:bg-[#9DB2C3] selection:text-black">
+      
+      {/* Background Lighting Vignette */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-175 h-87.5 bg-[#3E526D]/15 blur-[160px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Minimalist Section Header */}
-        <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-zinc-800/80">
           <div>
-           
+            <span className="text-[#9DB2C3]/80 text-xs font-semibold tracking-[0.2em] uppercase block mb-3 font-sans">
+              Connect With Us
+            </span>
             <h2 
               style={{ fontFamily: "'Anton', sans-serif" }}
-              className="text-5xl sm:text-7xl md:text-8xl uppercase tracking-tight text-white leading-none"
+              className="text-5xl sm:text-7xl md:text-8xl uppercase tracking-tight text-[#F4F5F7] leading-none"
             >
-              OFFICIAL CHANNELS
+              OFFICIAL <span className="text-[#9DB2C3]">CHANNELS</span>
             </h2>
           </div>
           
@@ -40,8 +46,8 @@ export const SocialMediaSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Minimalist Tracklist / Brutalist List Layout */}
-        <div className="border-t border-white/15">
+        {/* Modern Minimalist Interactive List Layout */}
+        <div className="border-t border-zinc-800/80">
           {channels.map((channel) => (
             <motion.a
               key={channel.id}
@@ -52,20 +58,20 @@ export const SocialMediaSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="group border-b border-white/15 py-8 md:py-12 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors duration-300 hover:bg-white/2 px-2 sm:px-4"
+              className="group border-b border-zinc-800/80 py-8 md:py-12 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 hover:bg-zinc-900/60 px-4 sm:px-6 rounded-2xl"
             >
               {/* Number & Platform */}
               <div className="flex items-baseline gap-6 md:w-1/3">
-                <span className="font-mono text-xs text-amber-400 font-bold tracking-widest">
+                <span className="text-xs text-[#9DB2C3] font-bold tracking-widest font-sans">
                   {channel.id}
                 </span>
                 <div>
-                  <span className="font-mono text-xs tracking-[0.2em] text-zinc-400 uppercase block mb-1">
+                  <span className="text-xs font-semibold tracking-[0.2em] text-zinc-500 uppercase block mb-1 font-sans">
                     {channel.platform}
                   </span>
                   <h3 
                     style={{ fontFamily: "'Anton', sans-serif" }}
-                    className="text-3xl sm:text-4xl text-white group-hover:text-amber-300 transition-colors uppercase tracking-tight"
+                    className="text-3xl sm:text-4xl text-zinc-100 group-hover:text-[#9DB2C3] transition-colors uppercase tracking-tight"
                   >
                     {channel.handle}
                   </h3>
@@ -78,9 +84,9 @@ export const SocialMediaSection: React.FC = () => {
               </p>
 
               {/* Minimal Arrow & Call to Action */}
-              <div className="flex items-center gap-3 text-xs font-mono tracking-widest text-zinc-300 group-hover:text-white md:w-1/4 md:justify-end">
+              <div className="flex items-center gap-3 text-xs font-semibold tracking-widest text-zinc-400 group-hover:text-zinc-100 md:w-1/4 md:justify-end font-sans">
                 <span className="uppercase transition-opacity duration-300">OPEN</span>
-                <span className="text-amber-400 text-lg transition-transform duration-300 group-hover:translate-x-2">
+                <span className="text-[#9DB2C3] text-lg transition-transform duration-300 group-hover:translate-x-2">
                   →
                 </span>
               </div>
