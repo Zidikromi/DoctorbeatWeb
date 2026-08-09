@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, EffectFade, Autoplay } from "swiper/modules";
+import { Navigation, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
-import pic2022 from '../assets/img/2022.jpg';
-import pic2023 from '../assets/img/2023.jpg';
-import pic2024 from '../assets/img/2024.jpg';
-import pic2026 from '../assets/img/2026.jpg';
 
+import pic2022 from "../assets/img/2022.png";
+import pic2023 from "../assets/img/2023.jpg";
+import pic2024 from "../assets/img/2024.jpg";
+import pic2025 from "../assets/img/2025.jpg";
+import pic2026 from "../assets/img/2026.jpg";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -55,6 +56,15 @@ export default function BandHistory(): React.ReactElement {
       items: ["Rilisan Karya Orisinal", "Resmi di Spotify"],
     },
     {
+      year: "2025",
+      badge: "In Memoriam",
+      title: "Berpulangnya Sang Bassist (Oni Nio)",
+      description:
+        "Tahun penuh duka mendalam bagi keluarga besar Doctor Beat. Berpulangnya Oni Nio, sang bassist sekaligus pilar awal berdirinya band, meninggalkan jejak harmoni dan dedikasi abadi yang akan terus dihidupkan di setiap panggung.",
+      mainImage: pic2025,
+      items: ["Mengenang Oni Nio", "Pilar Awal Band", "Warisan Musik Abadi"],
+    },
+    {
       year: "2026",
       badge: "Konsistensi",
       title: "Ekspansi Pertunjukan",
@@ -65,13 +75,6 @@ export default function BandHistory(): React.ReactElement {
     },
   ];
 
-  const handleYearClick = (index: number): void => {
-    setActiveIndex(index);
-    if (swiperRef) {
-      swiperRef.slideTo(index);
-    }
-  };
-
   const handleImageError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>,
     fallbackUrl: string
@@ -80,78 +83,68 @@ export default function BandHistory(): React.ReactElement {
   };
 
   return (
-    <section className="relative bg-zinc-950 text-[#F4F5F7] py-24 px-4 sm:px-8 lg:px-12 overflow-hidden selection:bg-[#9DB2C3] selection:text-black">
-      {/* Background Lighting Vignette */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-175 h-87.5 bg-[#3E526D]/15 blur-[160px] pointer-events-none" />
+    <section className="relative bg-[#09090b] text-[#fafafa] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-hidden selection:bg-zinc-100 selection:text-zinc-950 font-sans">
+      
+      {/* Background Soft Monochromatic Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-160 sm:w-240 h-80 bg-zinc-800/10 blur-[150px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-zinc-800/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16 pb-8 border-b border-zinc-800/80">
           <div>
-            <span className="text-[#9DB2C3]/80 text-xs font-semibold tracking-[0.2em] uppercase block mb-3 font-sans">
-              Band Journey & Archive
+            <span className="text-zinc-400 text-xs font-semibold tracking-[0.25em] uppercase block mb-3 font-sans">
+              Archive &mdash; Band Journey
             </span>
-            <h2 className="text-5xl sm:text-7xl font-['Anton'] uppercase tracking-tight text-[#F4F5F7] leading-none">
-              SEJARAH <span className="text-[#9DB2C3]">PERJALANAN</span>
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white leading-none font-sans">
+              SEJARAH <span className="text-zinc-500">PERJALANAN</span>
             </h2>
           </div>
-   
-        </div>
 
-        {/* Floating Segmented Year Control */}
-        <div className="flex justify-center mb-16">
-          <nav className="inline-flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 p-1.5 rounded-2xl backdrop-blur-xl shadow-2xl">
-            {historyData.map((item, idx) => {
-              const isActive = activeIndex === idx;
-              return (
-                <button
-                  key={idx}
-                  onClick={() => handleYearClick(idx)}
-                  className={`relative px-6 py-2.5 rounded-xl text-sm sm:text-base font-bold transition-all duration-300 ${
-                    isActive ? "text-zinc-950" : "text-zinc-400 hover:text-zinc-200"
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeTimelinePill"
-                      className="absolute inset-0 bg-[#9DB2C3] rounded-xl"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10 font-['Anton'] tracking-wider">{item.year}</span>
-                </button>
-              );
-            })}
-          </nav>
+          {/* Quick Year Selector */}
+          <div className="hidden lg:flex items-center gap-1.5 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-800">
+            {historyData.map((item, idx) => (
+              <button
+                key={idx}
+                onClick={() => swiperRef?.slideTo(idx)}
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 font-sans tracking-wide ${
+                  activeIndex === idx
+                    ? "bg-zinc-100 text-zinc-950 shadow-sm"
+                    : "text-zinc-400 hover:text-white hover:bg-zinc-800/50"
+                }`}
+              >
+                {item.year}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Swiper Content */}
         <div className="relative">
-          {/* Custom Arrow Navigation */}
-          <div className="absolute top-1/2 -left-4 sm:-left-6 -right-4 sm:-right-6 -translate-y-1/2 z-30 flex justify-between pointer-events-none">
+          {/* Desktop Navigation Arrows */}
+          <div className="hidden sm:flex absolute top-1/2 -left-6 -right-6 -translate-y-1/2 z-30 justify-between pointer-events-none">
             <button
               id="history-prev-btn"
-              className="pointer-events-auto w-12 h-12 rounded-full bg-zinc-900/90 border border-zinc-800 hover:border-[#9DB2C3] text-zinc-300 hover:text-[#9DB2C3] flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95 group"
+              className="pointer-events-auto w-11 h-11 rounded-full bg-zinc-900/90 hover:bg-zinc-100 border border-zinc-800 hover:border-zinc-100 text-zinc-300 hover:text-zinc-950 flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg group"
               aria-label="Previous Slide"
             >
               <svg className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               id="history-next-btn"
-              className="pointer-events-auto w-12 h-12 rounded-full bg-zinc-900/90 border border-zinc-800 hover:border-[#9DB2C3] text-zinc-300 hover:text-[#9DB2C3] flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95 group"
+              className="pointer-events-auto w-11 h-11 rounded-full bg-zinc-900/90 hover:bg-zinc-100 border border-zinc-800 hover:border-zinc-100 text-zinc-300 hover:text-zinc-950 flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg group"
               aria-label="Next Slide"
             >
               <svg className="w-5 h-5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
               </svg>
             </button>
           </div>
 
           <Swiper
-            modules={[Navigation, EffectFade, Autoplay]}
+            modules={[Navigation, EffectFade]}
             onSwiper={(swiper: SwiperClass) => setSwiperRef(swiper)}
             onSlideChange={(swiper: SwiperClass) => setActiveIndex(swiper.activeIndex)}
             navigation={{
@@ -162,78 +155,112 @@ export default function BandHistory(): React.ReactElement {
             fadeEffect={{ crossFade: true }}
             className="w-full"
           >
-            {historyData.map((data: HistoryItem, idx: number) => (
-              <SwiperSlide key={idx}>
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                  
-                  {/* Left Column: Clean Single Image Showcase */}
-                  <div className="lg:col-span-7 relative">
-                    <div className="relative rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl group">
-                      <div className="aspect-16/10 sm:aspect-video w-full overflow-hidden">
-                        <img
-                          src={data.mainImage}
-                          alt={`Doctor Beat ${data.year}`}
-                          className="w-full h-full object-cover filter brightness-90 contrast-110 saturate-75 group-hover:saturate-100 transition-all duration-700 ease-out group-hover:scale-105"
-                          onError={(e) =>
-                            handleImageError(
-                              e,
-                              "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop"
-                            )
-                          }
-                        />
+            {historyData.map((data: HistoryItem, idx: number) => {
+              const isActive = activeIndex === idx;
+
+              return (
+                <SwiperSlide key={idx}>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                    
+                    {/* Visual Container */}
+                    <div className="lg:col-span-7 relative">
+                      <div className="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900/40">
+                        <div className="aspect-16/10 sm:aspect-video w-full overflow-hidden">
+                          <img
+                            src={data.mainImage}
+                            alt={`Doctor Beat ${data.year}`}
+                            className={`w-full h-full object-cover filter brightness-90 contrast-110 transition-transform duration-700 ease-out ${
+                              data.year === "2025" ? "grayscale" : "grayscale-20"
+                            }`}
+                            onError={(e) =>
+                              handleImageError(
+                                e,
+                                "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop"
+                              )
+                            }
+                          />
+                        </div>
+                        <div className="absolute inset-0 bg-linear-to-t from-[#09090b] via-transparent to-transparent opacity-80 pointer-events-none" />
                       </div>
 
-                      {/* Dark Gradient Overlay */}
-                      <div className="absolute inset-0 bg-linear-to-t from-zinc-950/80 via-transparent to-transparent pointer-events-none" />
+                      {/* Mobile Arrow Navigation */}
+                      <div className="flex sm:hidden justify-between items-center mt-4 px-1">
+                        <button
+                          onClick={() => swiperRef?.slidePrev()}
+                          className="flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white uppercase tracking-wider font-sans"
+                        >
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+                          </svg>
+                          Sebelumnya
+                        </button>
+                        <span className="text-xs font-semibold text-zinc-500 font-sans tracking-wide">
+                          0{idx + 1} / 0{historyData.length}
+                        </span>
+                        <button
+                          onClick={() => swiperRef?.slideNext()}
+                          className="flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white uppercase tracking-wider font-sans"
+                        >
+                          Selanjutnya
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Right Column: Editorial Narrative */}
-                  <div className="lg:col-span-5 space-y-8">
-                    <AnimatePresence mode="wait">
+                    {/* Content Section */}
+                    <div className="lg:col-span-5 space-y-6">
                       <motion.div
-                        key={activeIndex}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{
+                          opacity: isActive ? 1 : 0,
+                          y: isActive ? 0 : 15,
+                        }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
                         className="space-y-6"
                       >
                         <div>
-                          <div className="inline-block px-3 py-1 rounded-md bg-[#9DB2C3]/10 border border-[#9DB2C3]/20 text-[#9DB2C3] text-xs font-semibold tracking-wider uppercase mb-3">
-                            {data.badge}
+                          {/* Year & Badge */}
+                          <div className="flex items-center gap-3 mb-3">
+                            <span className="text-4xl sm:text-6xl font-black text-white leading-none tracking-tight font-sans">
+                              {data.year}
+                            </span>
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold uppercase tracking-wider font-sans">
+                              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+                              {data.badge}
+                            </div>
                           </div>
-                          <h3 className="text-3xl sm:text-4xl font-['Anton'] uppercase tracking-wide text-zinc-100 leading-tight">
+
+                          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-100 leading-tight font-sans">
                             {data.title}
                           </h3>
                         </div>
 
-                        <p className="text-zinc-300 text-base sm:text-lg font-light leading-relaxed">
+                        <p className="text-zinc-400 text-sm sm:text-base font-normal leading-relaxed font-sans">
                           {data.description}
                         </p>
 
-                        {/* Highlighted Tags */}
-                        <div className="pt-2 border-t border-zinc-800">
-
+                        {/* Minimal Pill Tags */}
+                        <div className="pt-4 border-t border-zinc-800/80">
                           <div className="flex flex-wrap gap-2">
                             {data.items.map((item, itemIdx) => (
                               <span
                                 key={itemIdx}
-                                className="text-xs font-medium text-zinc-300 bg-zinc-900 border border-zinc-800 px-3.5 py-2 rounded-xl flex items-center gap-2 hover:border-[#9DB2C3]/40 transition-colors"
+                                className="text-xs font-semibold text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-3 py-1.5 rounded-md font-sans tracking-wide"
                               >
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#9DB2C3]" />
                                 {item}
                               </span>
                             ))}
                           </div>
                         </div>
                       </motion.div>
-                    </AnimatePresence>
-                  </div>
+                    </div>
 
-                </div>
-              </SwiperSlide>
-            ))}
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import heroPic from '../assets/heropic.png';
+import heroPic1 from '../assets/heropic1.png';
+import heropic3 from '../assets/heropic3.png';
 
 export const HeroSection: React.FC = () => {
   // 1. Mouse Position State & Spring Parallax Motion
@@ -35,7 +36,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section 
       onMouseMove={handleMouseMove}
-      className="relative w-full min-h-screen bg-zinc-950 text-white overflow-hidden flex items-center justify-center font-sans selection:bg-[#9DB2C3] selection:text-black perspective-[1000px]"
+      className="relative w-full min-h-screen bg-[#f9f8f9] text-white overflow-hidden flex items-center justify-center font-sans selection:bg-[#9DB2C3] selection:text-black perspective-[1000px]"
     >
       {/* Dynamic Cursor Spotlight Layer */}
       <div 
@@ -62,7 +63,7 @@ export const HeroSection: React.FC = () => {
               ease: "linear" 
             }}
             style={{ width: `${p.size}px`, height: `${p.size}px` }}
-            className="absolute rounded-full bg-[#9DB2C3]/40 blur-[1px]"
+            className="absolute rounded-full bg-[#3E526D]/30 blur-[1px]"
           />
         ))}
       </div>
@@ -80,9 +81,9 @@ export const HeroSection: React.FC = () => {
         <motion.div 
           animate={{ rotate: 360 }}
           transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-          className="w-175 h-175 rounded-full border-12der-zinc-700 bg-[radial-gradient(circle,#18181b_20%,#09090b_80%)] flex items-center justify-center shadow-2xl"
+          className="w-175 h-175 rounded-full border-12 border-zinc-700 bg-[radial-gradient(circle,#18181b_20%,#09090b_80%)] flex items-center justify-center shadow-2xl"
         >
-          <div className="w-70 h-70ded-full border-22er-zinc-600/50 flex items-center justify-center">
+          <div className="w-70 h-70 rounded-full border-2 border-zinc-600/50 flex items-center justify-center">
             <div className="w-30 h-30 rounded-full bg-[#3E526D]/30 border border-[#9DB2C3]/30 flex items-center justify-center">
               <span className="text-[10px] font-mono tracking-widest text-[#9DB2C3]">1960s VINYL</span>
             </div>
@@ -90,41 +91,33 @@ export const HeroSection: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Background Image: Infinite Zoom & Cinematic Color Grading */}
+      {/* Background Image: Responsive Switch (Mobile vs Desktop) */}
       <div className="absolute inset-0 z-0">
-        <motion.img
-          animate={{ 
-            scale: [1, 1.08, 1],
-            rotate: [0, 0.3, 0]
-          }}
-          transition={{ 
-            duration: 22, 
-            repeat: Infinity, 
-            repeatType: "reverse",
-            ease: "easeInOut" 
-          }}
-          src={heroPic}
-          alt="Tribute to The Beatles"
-          className="w-full h-full object-cover object-center filter brightness-90 contrast-125 saturate-50 hover:saturate-100 transition-all duration-1000"
-        />
+        <picture>
+          {/* Tampilan Desktop (md ke atas) */}
+          <source media="(min-width: 768px)" srcSet={heroPic1} />
+          {/* Tampilan Mobile (di bawah md) */}
+          <img
+            src={heropic3}
+            alt="Tribute to The Beatles"
+            className="w-full h-full object-cover object-center"
+          />
+        </picture>
 
-        {/* Cinematics Lighting Vignette */}
-        <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/60 to-transparent" />
-        <div className="absolute inset-0 bg-linear-to-r from-zinc-950 via-zinc-950/40 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#09090b_100%)] opacity-90" />
+        {/* Backdrop overlay khusus mobile agar teks lebih terlihat di atas heropic3 */}
+        <div className="absolute inset-0 bg-black/35 md:bg-transparent pointer-events-none" />
 
         {/* Abbey Road Atmospheric Glow Layer */}
-        <div className="absolute top-1/4 left-1/4 w-125 h-75 bg-[#3E526D]/20 rounded-full blur-[160px] pointer-events-none animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-100 h-75 bg-[#9DB2C3]/15 rounded-full blur-[160px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/4 w-125 h-75 bg-[#3E526D]/10 rounded-full blur-[160px] pointer-events-none animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-100 h-75 bg-[#9DB2C3]/10 rounded-full blur-[160px] pointer-events-none" />
       </div>
-
 
       {/* 3D Interactive Parallax Card Container */}
       <motion.div 
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className="relative z-30 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-16"
       >
-        <div className="max-w-4xl">
+        <div className="max-w-3xl">
 
           {/* Typography Layout */}
           <motion.div
@@ -133,41 +126,42 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-0"
           >
+            {/* TRIBUTE TO: Putih di Mobile, Kembali ke text-zinc-900 di Desktop */}
             <h1
               style={{ fontFamily: "'Anton', sans-serif" }}
-              className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] uppercase tracking-tighter leading-[0.8] font-black text-[#F4F5F7] drop-shadow-2xl"
+              className="text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] uppercase tracking-tighter leading-[0.8] font-black text-white md:text-zinc-900 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] md:drop-shadow-sm"
             >
               TRIBUTE TO
             </h1>
             
-            {/* Interactive Beatles Abbey Road Text (Langsung menyala di HP/Mobile, Hover di Desktop) */}
+            {/* THE BEATLES: Warna & Shadow Terang di Mobile, Kembali ke Style Asli di Desktop */}
             <h1
               style={{ 
                 fontFamily: "'Anton', sans-serif",
-                WebkitTextStroke: "1.5px #9DB2C3",
+                WebkitTextStroke: "1.5px #3E526D",
               }}
-              className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] uppercase tracking-tighter leading-[0.85] font-black text-[#9DB2C3] md:text-transparent md:hover:text-[#9DB2C3] transition-all duration-700 cursor-default drop-shadow-[0_0_35px_rgba(157,178,195,0.6)] md:drop-shadow-none md:hover:drop-shadow-[0_0_50px_rgba(157,178,195,0.6)]"
+              className="text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] uppercase tracking-tighter leading-[0.85] font-black text-[#9DB2C3] md:text-transparent md:hover:text-[#3E526D] transition-all duration-700 cursor-default drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)] md:drop-shadow-none md:hover:drop-shadow-[0_0_35px_rgba(62,82,109,0.4)]"
             >
               THE BEATLES
             </h1>
           </motion.div>
 
-          {/* Beatles Iconic Quote Subtitle */}
+          {/* Beatles Iconic Quote Subtitle: Teks Terang di Mobile, text-zinc-700 di Desktop */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
-            className="mt-3 flex items-center gap-3 text-[#9DB2C3]/90 font-mono text-xs tracking-[0.3em] uppercase"
+            className="mt-3 flex items-center gap-3 text-zinc-100 md:text-zinc-700 font-mono text-xs tracking-[0.3em] uppercase font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] md:drop-shadow-none"
           >
             <span>"ALL YOU NEED IS LOVE & ROCK 'N' ROLL"</span>
           </motion.div>
 
-          {/* Description */}
+          {/* Description: Teks Putih Terang di Mobile, text-zinc-700 di Desktop */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
-            className="mt-6 text-zinc-300 text-base sm:text-lg md:text-xl max-w-xl font-light leading-relaxed tracking-wide"
+            className="mt-6 text-zinc-100 md:text-zinc-700 text-base sm:text-lg md:text-xl max-w-xl font-normal leading-relaxed tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] md:drop-shadow-none"
           >
             Menghidupkan kembali euforia era keemasan musik paling berpengaruh di dunia lewat pertunjukan presisi, estetika vintage otentik, dan energi tanpa kompromi.
           </motion.p>
@@ -180,10 +174,10 @@ export const HeroSection: React.FC = () => {
             className="mt-10 flex flex-wrap items-center gap-5"
           >
             <a
-              href="https://wa.me/6282216442245?text=Halo,%20saya%20ingin%bertanya mengenai Band Tribute The Beatles."
-              className="group relative inline-flex items-center justify-center px-9 py-4 bg-[#9DB2C3] text-zinc-950 font-bold tracking-[0.15em] text-xs sm:text-sm uppercase rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-[#F4F5F7] hover:shadow-[0_0_40px_rgba(157,178,195,0.5)]"
+              href="https://wa.me/6282216442245?text=Halo,%20saya%20ingin%20bertanya%20mengenai%20Band%20Tribute%20The%20Beatles."
+              className="group relative inline-flex items-center justify-center px-9 py-4 bg-zinc-950 text-white font-bold tracking-[0.15em] text-xs sm:text-sm uppercase rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-[#3E526D] hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)] shadow-[0_4px_15px_rgba(0,0,0,0.4)] md:shadow-none"
             >
-              <span className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+              <span className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
               
               <span className="relative z-10 flex items-center gap-3">
                 Book Band
@@ -202,10 +196,10 @@ export const HeroSection: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 right-8 z-30 hidden md:flex items-center gap-4 text-[#9DB2C3]/70 text-[10px] font-mono tracking-[0.3em] uppercase rotate-90 origin-right pointer-events-none"
+        className="absolute bottom-8 right-8 z-30 hidden md:flex items-center gap-4 text-zinc-500 text-[10px] font-mono tracking-[0.3em] uppercase rotate-90 origin-right pointer-events-none"
       >
         <span>Scroll for more</span>
-        <div className="w-12 h-px bg-[#9DB2C3]/50 animate-pulse" />
+        <div className="w-12 h-px bg-zinc-400 animate-pulse" />
       </motion.div>
     </section>
   );
