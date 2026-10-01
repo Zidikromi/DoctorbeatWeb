@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import heroPic1 from '../assets/heropic1.png';
-import heropic3 from '../assets/heropic3.png';
+import heroPic1 from '../assets/herowebp.webp';
+import heropic3 from '../assets/heropic2.webp';
 
 export const HeroSection: React.FC = () => {
   // 1. Mouse Position State & Spring Parallax Motion
@@ -129,7 +129,7 @@ export const HeroSection: React.FC = () => {
             {/* TRIBUTE TO: Putih di Mobile, Kembali ke text-zinc-900 di Desktop */}
             <h1
               style={{ fontFamily: "'Anton', sans-serif" }}
-              className="text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] uppercase tracking-tighter leading-[0.8] font-black text-white md:text-zinc-900 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] md:drop-shadow-sm"
+              className="text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] uppercase tracking-tighter leading-[0.8] font-black text-white  drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] md:drop-shadow-sm"
             >
               TRIBUTE TO
             </h1>
@@ -140,7 +140,7 @@ export const HeroSection: React.FC = () => {
                 fontFamily: "'Anton', sans-serif",
                 WebkitTextStroke: "1.5px #3E526D",
               }}
-              className="text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] uppercase tracking-tighter leading-[0.85] font-black text-[#9DB2C3] md:text-transparent md:hover:text-[#3E526D] transition-all duration-700 cursor-default drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)] md:drop-shadow-none md:hover:drop-shadow-[0_0_35px_rgba(62,82,109,0.4)]"
+              className="text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] uppercase tracking-tighter leading-[0.85] font-black text-[#9DB2C3] md:text-transparent md:hover:text-[#5d7da8] transition-all duration-700 cursor-default drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)] md:drop-shadow-none md:hover:drop-shadow-[0_0_35px_rgba(62,82,109,0.4)]"
             >
               THE BEATLES
             </h1>
@@ -151,7 +151,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
-            className="mt-3 flex items-center gap-3 text-zinc-100 md:text-zinc-700 font-mono text-xs tracking-[0.3em] uppercase font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] md:drop-shadow-none"
+            className="mt-3 flex items-center gap-3 text-zinc-100 md:text-zinc-100 font-mono text-xs tracking-[0.3em] uppercase font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] md:drop-shadow-none"
           >
             <span>"ALL YOU NEED IS LOVE & ROCK 'N' ROLL"</span>
           </motion.div>
@@ -161,7 +161,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
-            className="mt-6 text-zinc-100 md:text-zinc-700 text-base sm:text-lg md:text-xl max-w-xl font-normal leading-relaxed tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] md:drop-shadow-none"
+            className="mt-6 text-zinc-100 md:text-zinc-100 text-base sm:text-lg md:text-xl max-w-xl font-normal leading-relaxed tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] md:drop-shadow-none"
           >
             Menghidupkan kembali euforia era keemasan musik paling berpengaruh di dunia lewat pertunjukan presisi, estetika vintage otentik, dan energi tanpa kompromi.
           </motion.p>
